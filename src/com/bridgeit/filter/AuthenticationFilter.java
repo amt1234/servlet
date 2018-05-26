@@ -35,7 +35,8 @@ public class AuthenticationFilter implements Filter {
 			if (!(username == null) && !(email == null) && !(password == null) && !(mobileNo == 10) && !(dob == null)) {
 				chain.doFilter(request, response);
 
-			} else {
+			} 
+			else {
 				out.println("You entered wrong Information ");
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
 				requestDispatcher.forward(request, response);
