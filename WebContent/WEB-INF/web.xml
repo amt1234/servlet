@@ -45,7 +45,7 @@
   </filter>
   <filter-mapping>
     <filter-name>MyFilter</filter-name>
-    <url-pattern>/login.do</url-pattern>
+    <url-pattern>/register.do</url-pattern>
   </filter-mapping>
   
 </web-app>

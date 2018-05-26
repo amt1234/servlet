@@ -34,7 +34,6 @@ public class Login extends HttpServlet {
 				Cookie cookie=new Cookie("username",username);
 				
 				response.sendRedirect("welcome.jsp");
-
 			}
 			else
 			{

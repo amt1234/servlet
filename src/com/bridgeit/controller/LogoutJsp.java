@@ -31,7 +31,6 @@ public class LogoutJsp extends HttpServlet {
 		
 		out.println("You are successfully logged out!");
 		response.sendRedirect("login.jsp");
-	
 	}
 
 	/**

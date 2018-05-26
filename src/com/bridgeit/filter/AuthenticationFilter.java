@@ -25,20 +25,22 @@ public class AuthenticationFilter implements Filter {
 			throws IOException, ServletException {
 
 		PrintWriter out = response.getWriter();
-		String username = request.getParameter("email");
-		String password = request.getParameter("pass");
-	
+		String username = request.getParameter("username");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		long mobileNo = Long.parseLong(request.getParameter("mobileNo"));
+		String dob = request.getParameter("dob");
+
 		try {
-			if (!(username==null) && !(password==null)) {
+			if (!(username == null) && !(email == null) && !(password == null) && !(mobileNo == 10) && !(dob == null)) {
 				chain.doFilter(request, response);
 
 			} else {
-				out.println("You entered wrong username or password ");
+				out.println("You entered wrong Information ");
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-				requestDispatcher.include(request, response);
-
+				requestDispatcher.forward(request, response);
 			}
-		
+
 		} catch (Exception e) {
 
 			System.out.println(e);
@@ -46,7 +48,6 @@ public class AuthenticationFilter implements Filter {
 			out.close();
 		}
 	}
-
 	public void destroy() {
 	}
 

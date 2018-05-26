@@ -2,8 +2,6 @@ package com.bridgeit.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +13,7 @@ public class RegisterController extends HttpServlet{
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException
 	{
 		PrintWriter out=response.getWriter();
-		JdbcDao jdbcDao=new JdbcDao();
-		
+			
 		String name=request.getParameter("username");
 		String email=request.getParameter("email");
 		String pass=request.getParameter("password");
@@ -25,8 +22,8 @@ public class RegisterController extends HttpServlet{
 		
 		
 		try {
-			jdbcDao.registerInfo(name, email, pass, number, date);
-		} catch (ClassNotFoundException | SQLException e) {
+			JdbcDao.registerInfo(name, email, pass, number, date);
+		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}

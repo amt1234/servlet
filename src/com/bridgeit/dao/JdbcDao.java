@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class JdbcDao {
 
@@ -38,12 +37,10 @@ public class JdbcDao {
 
 	}
 
-	public static boolean registerInfo(String name, String email, String pass, long number, String date)
-			throws ClassNotFoundException, SQLException {
-
-		Class.forName("com.mysql.jdbc.Driver");
+	public static boolean registerInfo(String name, String email, String pass, long number, String date) {
 
 		try {
+			Class.forName("com.mysql.jdbc.Driver");
 
 			try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORDD)) {
 
