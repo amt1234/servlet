@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.bridgeit.dao.JdbcDao;
 
+import com.bridgeit.dao.JdbcDao;
 
 /**
  * Servlet implementation class LoginJsp
@@ -25,10 +25,8 @@ public class Login extends HttpServlet {
 		String username=request.getParameter("email");
 		String password=request.getParameter("pass");
 	
-		JdbcDao jdbcDao=new JdbcDao();
-
 		try {
-			if(jdbcDao.checkLogin(username,password))
+			if(JdbcDao.checkLogin(username,password))
 			{
 				HttpSession httpSession=request.getSession();
 				httpSession.setAttribute("Username",username);
@@ -40,8 +38,7 @@ public class Login extends HttpServlet {
 			}
 			else
 			{
-				response.sendRedirect("login.jsp");
-				 
+				response.sendRedirect("login.jsp");			 
 			}
 		} catch (Exception e) {
 			System.out.println(e);

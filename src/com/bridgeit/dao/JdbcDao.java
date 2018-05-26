@@ -8,46 +8,47 @@ import java.sql.SQLException;
 
 public class JdbcDao {
 
-	String url = "jdbc:mysql://localhost:3306/RegisterDB";
-	String username = "root";
-	String passwordd = "root";
-	String sql = "select * from RegisterTable where email=? and password=?";
+	private static final String URL = "jdbc:mysql://localhost:3306/RegisterDB";
+	private static final String USERNAME = "root";
+	private static final String PASSWORDD = "root";
 
-	public boolean checkLogin(String email,String pass) throws ClassNotFoundException, SQLException
-		{
-		
+	public static boolean checkLogin(String email, String pass) {
+
+		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			
-			Connection connection=DriverManager.getConnection(url, username, passwordd);
-			try {
-			PreparedStatement preparedStatement=connection.prepareStatement(sql);
-			preparedStatement.setString(1, email);
-			preparedStatement.setString(2, pass);
-			
-			ResultSet resultSet=preparedStatement.executeQuery();
-			System.out.println("selected result affected :"+resultSet);
-			if(resultSet.next())
-			{
-				return true;
+
+			try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORDD)) {
+				String sql = "select * from RegisterTable where email=? and password=?";
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, email);
+				preparedStatement.setString(2, pass);
+
+				ResultSet resultSet = preparedStatement.executeQuery();
+				System.out.println("selected result affected :" + resultSet);
+				if (resultSet.next()) {
+					return true;
+				}
 			}
-			
-		}catch(Exception e){
+		} catch (Exception e) {
 			System.out.println(e);
-			
+
 		}
-		
+
 		return false;
-		
+
 	}
 
-	public boolean registerInfo(String name, String email, String pass, long number, String date)
-				throws ClassNotFoundException, SQLException {
+	public static boolean registerInfo(String name, String email, String pass, long number, String date)
+			throws ClassNotFoundException, SQLException {
 
-			Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.jdbc.Driver");
 
-			Connection connection = DriverManager.getConnection(url, username, passwordd);
-			try {
-				PreparedStatement preparedStatement = connection.prepareStatement("insert into RegisterTable values(?,?,?,?,?)");
+		try {
+
+			try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORDD)) {
+
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("insert into RegisterTable values(?,?,?,?,?)");
 				preparedStatement.setString(1, name);
 				preparedStatement.setString(2, email);
 				preparedStatement.setString(3, pass);
@@ -57,12 +58,10 @@ public class JdbcDao {
 				int result = preparedStatement.executeUpdate();
 				System.out.println("inserted result affected :" + result);
 
-			} catch (Exception e) {
-				System.out.println(e);
 			}
-			finally {
-				connection.close();
-			}
-			return false;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return false;
 	}
 }
