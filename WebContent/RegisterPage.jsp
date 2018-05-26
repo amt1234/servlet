@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <script src="js/Validation.js" type="text/javascript" ></script>
 </head>
 <body>
@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<td>Enter Mobile Number :</td>
-				<td><input type="text" name="mobileNo" required /></td>
+				<td><input type="text" name="mobileNo" id="mobileNo" required /></td>
 			</tr>
 			<tr>
 				<td>Enter DOB :</td>

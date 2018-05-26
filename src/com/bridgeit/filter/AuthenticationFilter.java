@@ -2,6 +2,9 @@ package com.bridgeit.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -32,18 +35,17 @@ public class AuthenticationFilter implements Filter {
 		String dob = request.getParameter("dob");
 
 		try {
-			if (!(username == null) && !(email == null) && !(password == null) && !(mobileNo == 10) && !(dob == null)) {
+			if (((username != null) &&(regexname(username)==true))&&((email != null)&&(regexemail(email)==true)) && ((password != null)&&(password.length()>6)) && (((1111111111)*7)<mobileNo && mobileNo>(9*1111111111)) && !(dob == null)) {
 				chain.doFilter(request, response);
 
 			} 
 			else {
 				out.println("You entered wrong Information ");
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-				requestDispatcher.forward(request, response);
+				requestDispatcher.include(request, response);
 			}
 
 		} catch (Exception e) {
-
 			System.out.println(e);
 		} finally {
 			out.close();
@@ -51,5 +53,27 @@ public class AuthenticationFilter implements Filter {
 	}
 	public void destroy() {
 	}
+	
+	public boolean regexname(String username)
+	{
+		Pattern pattern=Pattern.compile("[a-zA-Z]*");
+		Matcher matcher=pattern.matcher(username);
+		if(matcher.find()&& matcher.group().equals(username))
+		{
+			return true;
+		}
+		return false;
+	}
+	public boolean regexemail(String email)
+	{
+		Pattern pattern=Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9_.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+");
+		Matcher matcher=pattern.matcher(email);
+		if(matcher.find()&& matcher.group().equals(email))
+		{
+			return true;
+		}
+		return false;
+	}
+	
 
 }

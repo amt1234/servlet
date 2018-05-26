@@ -25,7 +25,7 @@ public class RegisterController extends HttpServlet{
 			JdbcDao.registerInfo(name, email, pass, number, date);
 		} catch (Exception e) {
 			
-			e.printStackTrace();
+			System.out.println(e);
 		}
 		out.println("Registered successfully..");
 		response.sendRedirect("login.jsp");
