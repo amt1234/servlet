@@ -8,10 +8,10 @@ import java.util.regex.Pattern;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 
 public class AuthenticationFilter implements Filter {
 	/**
@@ -35,14 +35,16 @@ public class AuthenticationFilter implements Filter {
 		String dob = request.getParameter("dob");
 
 		try {
-			if (((username != null) &&(regexname(username)==true))&&((email != null)&&(regexemail(email)==true)) && ((password != null)&&(password.length()>6)) && (((1111111111)*7)<mobileNo && mobileNo>(9*1111111111)) && !(dob == null)) {
+			if (((username != null) && (regexname(username) == true))
+					&& ((email != null) && (regexemail(email) == true))
+					&& ((password != null) && (password.length() > 6))
+					&& (((1111111111) * 7) < mobileNo && mobileNo > (9 * 1111111111)) && !(dob == null)) {
 				chain.doFilter(request, response);
 
-			} 
-			else {
+			} else {
 				out.println("You entered wrong Information ");
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-				requestDispatcher.include(request, response);
+				HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+				httpServletResponse.sendRedirect("login.jsp");
 			}
 
 		} catch (Exception e) {
@@ -51,29 +53,26 @@ public class AuthenticationFilter implements Filter {
 			out.close();
 		}
 	}
+
 	public void destroy() {
 	}
-	
-	public boolean regexname(String username)
-	{
-		Pattern pattern=Pattern.compile("[a-zA-Z]*");
-		Matcher matcher=pattern.matcher(username);
-		if(matcher.find()&& matcher.group().equals(username))
-		{
+
+	public boolean regexname(String username) {
+		Pattern pattern = Pattern.compile("[a-zA-Z]*");
+		Matcher matcher = pattern.matcher(username);
+		if (matcher.find() && matcher.group().equals(username)) {
 			return true;
 		}
 		return false;
 	}
-	public boolean regexemail(String email)
-	{
-		Pattern pattern=Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9_.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+");
-		Matcher matcher=pattern.matcher(email);
-		if(matcher.find()&& matcher.group().equals(email))
-		{
+
+	public boolean regexemail(String email) {
+		Pattern pattern = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9_.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+");
+		Matcher matcher = pattern.matcher(email);
+		if (matcher.find() && matcher.group().equals(email)) {
 			return true;
 		}
 		return false;
 	}
-	
 
 }

@@ -15,15 +15,15 @@
 <table>
 			<tr>
 				<td>Enter Name :</td>
-				<td><input type="text" name="username" id="nameId"></td>
+				<td><input type="text" name="username" id="nameId" required/></td>
 			</tr>
 			<tr>
 				<td>Enter Email :</td>
-				<td><input type="email" name="email" id="emailId"/></td>
+				<td><input type="email" name="email" id="emailId" required/></td>
 			</tr>
 			<tr>
 				<td>Enter Password :</td>
-				<td><input type="password" name="password" id="passwordId"/></td>
+				<td><input type="password" name="password" id="passwordId" required/></td>
 			</tr>
 			<tr>
 				<td>Enter Mobile Number :</td>
